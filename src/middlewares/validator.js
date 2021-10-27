@@ -36,8 +36,9 @@ const schemas = {
 
 function validate(schema) {
   return (req, res, next) => {
-    const { error } = joi.object().keys(schemas[schema]).validate(req.body);
-    
+    const { body = {} } = req;
+    const { error } = joi.object().keys(schemas[schema]).validate(body);
+    console.log('error',error,req.body);
     next(error);
   };
 }
