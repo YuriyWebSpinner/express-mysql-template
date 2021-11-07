@@ -3,7 +3,8 @@ const app = express();
 const router = require('./routes');
 const application = require('./core/app');
 
-router(app);
 application.init(app);
+router(app);
+application.finish(app);
 
 module.exports = app;

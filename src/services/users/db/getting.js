@@ -1,4 +1,4 @@
-const User = require("../db/mysql/models/Users");
+const User = require("../../../db/mysql/models/Users");
 
 const getAllUsers = async () => {
   return await User.findAndCountAll();

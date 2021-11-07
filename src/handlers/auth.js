@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const rc = require("../utils/response-creator");
 const {
   getUser
-} = require("../services/users");
+} = require("../services/users/db");
 
 
 const login = async (req, res, next) => {
@@ -10,7 +10,7 @@ const login = async (req, res, next) => {
   const { body = {} } = req;
   const { email, password } = body;
   
-  if(email && password) throw new Error('email or password not found');
+  if ( !( email && password ) ) throw new Error('email or password not found');
   
   try {
     const user = await getUser({email, password});

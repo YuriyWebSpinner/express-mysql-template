@@ -9,7 +9,18 @@ const joiVars = {
   userId: joi.string().uuid(),
   id: joi.number().integer().min(0).required(),
   password: joi.string().max(9),
+  level: joi.number().max(9),
+  data: joi.object()
 };
+
+const id = {
+  id: joiVars.id
+}
+
+const update = {
+  id: joiVars.id,
+  data: joiVars.data
+}
 
 const login = {
   email: joiVars.email,
@@ -19,6 +30,7 @@ const login = {
 const user = {
   ...login,
   name: joiVars.name.required(),
+  level: joiVars.level.required(),
 };
 
 const task = {
@@ -29,6 +41,8 @@ const task = {
 };
 
 const schemas = {
+  id,
+  update,
   user,
   login,
   task
@@ -38,7 +52,6 @@ function validate(schema) {
   return (req, res, next) => {
     const { body = {} } = req;
     const { error } = joi.object().keys(schemas[schema]).validate(body);
-    console.log('error',error,req.body);
     next(error);
   };
 }
