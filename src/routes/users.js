@@ -1,19 +1,17 @@
 const router = require("express").Router();
 const { auth, validator } = require("../middlewares");
-const { getUsersHandler, createUserHandler, login, deleteUserHandler, updateUserHandler} = require("../handlers");
+const { getUsersHandler, createUserHandler, login, deleteUserHandler, updateUserHandler, getUserHandler} = require("../handlers");
 
 /**
  * @swagger
  * /v1/users:
  *   get:
- *     description: Get all users
+ *     description: Get all users1
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     produces:
  *       - application/json
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Array of users objects
@@ -24,6 +22,28 @@ const { getUsersHandler, createUserHandler, login, deleteUserHandler, updateUser
 router.get("/",
   auth,
   getUsersHandler,
+);
+
+/**
+ * @swagger
+ * /v1/users/id:
+ *   get:
+ *     description: Get all users1
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: User object
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/User'
+ */
+router.get("/:id",
+  auth,
+  getUserHandler,
 );
 
 /**

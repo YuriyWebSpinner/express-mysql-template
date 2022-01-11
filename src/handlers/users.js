@@ -3,7 +3,8 @@ const {
   getAllUsers,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUser
 } = require("../services/users/db");
 
 const createUserHandler = async (req, res, next) => {
@@ -56,9 +57,25 @@ const getUsersHandler = async (req, res, next) => {
   
 }
 
+const getUserHandler = async (req, res, next) => {
+  const { success, fail } = rc(res);
+  const { params } = req;
+  const { id } = params;
+
+  try {
+    const user = await getUser({ id });
+    return success({data: user});
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+  
+}
+
 module.exports = {
   getUsersHandler,
   createUserHandler,
   updateUserHandler,
-  deleteUserHandler
+  deleteUserHandler,
+  getUserHandler
 }

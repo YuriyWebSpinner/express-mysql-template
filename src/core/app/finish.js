@@ -3,10 +3,11 @@ const config = require('../../config/app');
 
 const init = async (app) => {
   app.use('/public', express.static('public'));
-  
-  app.listen(config.port, () => {
-    console.log(config.runMessage)
-  })
+  // if(!module.parent) {
+    app.listen(config.port, () => {
+      console.log(config.runMessage)
+    })
+  // }
 }
 
 module.exports = init;
